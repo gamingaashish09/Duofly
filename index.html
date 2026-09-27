@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Duofly</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#d7dbd6;
+}
+
+.app{
+    width:100%;
+    max-width:500px;
+    height:100vh;
+    margin:auto;
+    background:#efeae2;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+/* HEADER */
+
+.header{
+    height:65px;
+    background:#075e54;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:8px 12px;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    background:#25d366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+}
+
+.brand h2{
+    font-size:20px;
+}
+
+.header-icons{
+    display:flex;
+    gap:20px;
+    font-size:22px;
+}
+
+/* SEARCH */
+
+.search{
+    padding:8px;
+    background:#075e54;
+}
+
+.search input{
+    width:100%;
+    border:0;
+    outline:none;
+    border-radius:22px;
+    padding:11px 17px;
+    font-size:14px;
+}
+
+/* TABS */
+
+.tabs{
+    height:48px;
+    background:#075e54;
+    color:white;
+    display:flex;
+}
+
+.tab{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.tab.active{
+    border-bottom:3px solid #25d366;
+}
+
+/* CHAT LIST */
+
+.chat-list{
+    flex:1;
+    overflow-y:auto;
+    background:white;
+}
+
+.chat{
+    height:75px;
+    display:flex;
+    align-items:center;
+    padding:10px 14px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.chat:hover{
+    background:#f5f5f5;
+}
+
+.chat-avatar{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#ddd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    margin-right:13px;
+}
+
+.chat-info{
+    flex:1;
+}
+
+.chat-info h3{
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.chat-info p{
+    color:#777;
+    font-size:13px;
+}
+
+.time{
+    font-size:11px;
+    color:#777;
+}
+
+/* CONVERSATION */
+
+.conversation{
+    display:none;
+    flex-direction:column;
+    height:100%;
+    background:#efeae2;
+}
+
+.conversation-header{
+    height:65px;
+    background:#075e54;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:8px;
+    gap:10px;
+}
+
+.back{
+    font-size:27px;
+    cursor:pointer;
+}
+
+.conversation-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-avatar{
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    background:#ddd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:21px;
+}
+
+.user-info h3{
+    font-size:16px;
+}
+
+.user-info p{
+    font-size:11px;
+    opacity:.8;
+}
+
+.call-icons{
+    margin-left:auto;
+    display:flex;
+    gap:17px;
+    font-size:20px;
+}
+
+/* MESSAGES */
+
+.messages{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+}
+
+.message{
+    max-width:75%;
+    padding:9px 12px;
+    margin-bottom:8px;
+    border-radius:8px;
+    font-size:14px;
+    position:relative;
+    word-wrap:break-word;
+}
+
+.received{
+    background:white;
+    margin-right:auto;
+}
+
+.sent{
+    background:#d9fdd3;
+    margin-left:auto;
+}
+
+.message small{
+    display:block;
+    text-align:right;
+    color:#777;
+    font-size:9px;
+    margin-top:4px;
+}
+
+/* MESSAGE INPUT */
+
+.input-area{
+    min-height:62px;
+    background:#f0f0f0;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:8px;
+}
+
+.attach{
+    font-size:23px;
+}
+
+.input-area input{
+    flex:1;
+    border:0;
+    outline:none;
+    border-radius:25px;
+    padding:12px 15px;
+    font-size:14px;
+}
+
+.send{
+    width:45px;
+    height:45px;
+    border:0;
+    border-radius:50%;
+    background:#25d366;
+    color:white;
+    font-size:19px;
+    cursor:pointer;
+}
+
+/* EMPTY TAB */
+
+.empty{
+    padding:50px 20px;
+    text-align:center;
+    color:#777;
+}
+
+/* DARK MODE */
+
+.dark{
+    background:#111b21;
+}
+
+.dark .chat-list{
+    background:#111b21;
+    color:white;
+}
+
+.dark .chat{
+    border-color:#26343a;
+}
+
+.dark .chat:hover{
+    background:#202c33;
+}
+
+.dark .chat-info p,
+.dark .time{
+    color:#aaa;
+}
+
+.dark .conversation{
+    background:#0b141a;
+}
+
+.dark .received{
+    background:#202c33;
+    color:white;
+}
+
+.dark .input-area{
+    background:#202c33;
+}
+
+.dark .input-area input{
+    background:#2a3942;
+    color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app" id="app">
+
+<!-- HOME -->
+
+<div id="home">
+
+    <div class="header">
+
+        <div class="brand">
+
+            <div class="logo">🦋</div>
+
+            <h2>Duofly</h2>
+
+        </div>
+
+        <div class="header-icons">
+            <span>📷</span>
+            <span>⋮</span>
+        </div>
+
+    </div>
+
+    <div class="search">
+        <input
+        type="text"
+        id="search"
+        placeholder="Search or start new chat">
+    </div>
+
+    <div class="tabs">
+
+        <div class="tab active"
+        onclick="showTab('chats',this)">
+        CHATS
+        </div>
+
+        <div class="tab"
+        onclick="showTab('updates',this)">
+        UPDATES
+        </div>
+
+        <div class="tab"
+        onclick="showTab('calls',this)">
+        CALLS
+        </div>
+
+    </div>
+
+    <div class="chat-list" id="chatList">
+
+        <div class="chat"
+        data-name="Alex"
+        onclick="openChat('Alex','👨🏻')">
+
+            <div class="chat-avatar">👨🏻</div>
+
+            <div class="chat-info">
+                <h3>Alex</h3>
+                <p>Hey! How are you? 👋</p>
+            </div>
+
+            <div class="time">10:25</div>
+
+        </div>
+
+
+        <div class="chat"
+        data-name="Sarah"
+        onclick="openChat('Sarah','👩🏻')">
+
+            <div class="chat-avatar">👩🏻</div>
+
+            <div class="chat-info">
+                <h3>Sarah</h3>
+                <p>See you tomorrow!</p>
+            </div>
+
+            <div class="time">09:42</div>
+
+        </div>
+
+
+        <div class="chat"
+        data-name="Friend"
+        onclick="openChat('Friend','🧑🏻')">
+
+            <div class="chat-avatar">🧑🏻</div>
+
+            <div class="chat-info">
+                <h3>Friend</h3>
+                <p>That's awesome 🔥</p>
+            </div>
+
+            <div class="time">Yesterday</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CONVERSATION -->
+
+<div class="conversation" id="conversation">
+
+    <div class="conversation-header">
+
+        <span class="back"
+        onclick="closeChat()">‹</span>
+
+        <div class="conversation-user">
+
+            <div class="user-avatar"
+            id="userAvatar">
+            👨🏻
+            </div>
+
+            <div class="user-info">
+
+                <h3 id="userName">Alex</h3>
+
+                <p>online</p>
+
+            </div>
+
+        </div>
+
+        <div class="call-icons">
+            <span>📹</span>
+            <span>📞</span>
+            <span>⋮</span>
+        </div>
+
+    </div>
+
+
+    <div class="messages" id="messages">
+
+        <div class="message received">
+            Hello! 👋
+            <small>10:20 ✓✓</small>
+        </div>
+
+        <div class="message received">
+            How are you?
+            <small>10:21 ✓✓</small>
+        </div>
+
+        <div class="message sent">
+            I'm fine 😎
+            <small>10:22 ✓✓</small>
+        </div>
+
+    </div>
+
+
+    <div class="input-area">
+
+        <span class="attach">📎</span>
+
+        <input
+        type="text"
+        id="messageInput"
+        placeholder="Type a message...">
+
+        <button
+        class="send"
+        onclick="sendMessage()">
+        ➤
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* OPEN CHAT */
+
+function openChat(name, avatar){
+
+    document.getElementById("home").style.display="none";
+
+    document.getElementById("conversation").style.display="flex";
+
+    document.getElementById("userName").textContent=name;
+
+    document.getElementById("userAvatar").textContent=avatar;
+
+}
+
+
+/* CLOSE CHAT */
+
+function closeChat(){
+
+    document.getElementById("conversation").style.display="none";
+
+    document.getElementById("home").style.display="block";
+
+}
+
+
+/* SEND MESSAGE */
+
+function sendMessage(){
+
+    const input =
+    document.getElementById("messageInput");
+
+    const text=input.value.trim();
+
+    if(text==="") return;
+
+    const messages =
+    document.getElementById("messages");
+
+    const message =
+    document.createElement("div");
+
+    message.className="message sent";
+
+    message.innerHTML=
+    text +
+    "<small>Just now ✓</small>";
+
+    messages.appendChild(message);
+
+    input.value="";
+
+    messages.scrollTop=messages.scrollHeight;
+
+}
+
+
+/* ENTER TO SEND */
+
+document
+.getElementById("messageInput")
+.addEventListener("keydown",function(event){
+
+    if(event.key==="Enter"){
+        sendMessage();
+    }
+
+});
+
+
+/* SEARCH */
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+    const value=this.value.toLowerCase();
+
+    document
+    .querySelectorAll(".chat")
+    .forEach(function(chat){
+
+        const name=
+        chat.dataset.name.toLowerCase();
+
+        chat.style.display=
+        name.includes(value)
+        ? "flex"
+        : "none";
+
+    });
+
+});
+
+
+/* TABS */
+
+function showTab(tab, element){
+
+    document
+    .querySelectorAll(".tab")
+    .forEach(function(item){
+        item.classList.remove("active");
+    });
+
+    element.classList.add("active");
+
+    const list=
+    document.getElementById("chatList");
+
+    if(tab==="chats"){
+
+        location.reload();
+
+    }
+
+    if(tab==="updates"){
+
+        list.innerHTML=
+        '<div class="empty">🟢<br><br>No new updates</div>';
+
+    }
+
+    if(tab==="calls"){
+
+        list.innerHTML=
+        '<div class="empty">📞<br><br>No recent calls</div>';
+
+    }
+
+}
+
+</script>
+
+</body>
+              </html>
