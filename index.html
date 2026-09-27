@@ -2,941 +2,1834 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
 
 <title>Duofly</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --green:#00a884;
+  --darkgreen:#008069;
+  --bg:#efeae2;
+  --white:#fff;
+  --text:#111;
+  --muted:#667781;
+  --card:#fff;
+  --input:#f0f2f5;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#d7dbd6;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  overflow:hidden;
 }
 
 button,input{
-    font-family:inherit;
+  font:inherit;
 }
 
-/* LOGIN */
-
-#auth{
-    width:100%;
-    max-width:500px;
-    height:100vh;
-    margin:auto;
-    background:#efeae2;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
+button{
+  border:0;
+  cursor:pointer;
 }
 
-.auth-box{
-    width:100%;
-    max-width:380px;
-    background:white;
-    border-radius:20px;
-    padding:30px 24px;
-    box-shadow:0 8px 30px rgba(0,0,0,.12);
-    text-align:center;
+.hidden{
+  display:none!important;
 }
 
-.auth-logo{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:#25d366;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    margin:0 auto 15px;
+/* AUTH */
+
+#authScreen{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#00a884,#00695c);
+  padding:20px;
 }
 
-.auth-box h1{
-    color:#075e54;
-    margin-bottom:7px;
+.authBox{
+  width:100%;
+  max-width:420px;
+  background:white;
+  border-radius:22px;
+  padding:30px 24px;
+  box-shadow:0 15px 50px #0004;
 }
 
-.auth-box p{
-    color:#777;
-    font-size:14px;
-    margin-bottom:25px;
+.logo{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:var(--green);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 15px;
+  color:white;
+  font-size:38px;
 }
 
-.auth-box input{
-    width:100%;
-    border:1px solid #ddd;
-    outline:none;
-    border-radius:12px;
-    padding:13px;
-    margin-bottom:12px;
-    font-size:14px;
+.authBox h1{
+  text-align:center;
+  margin-bottom:7px;
 }
 
-.auth-btn{
-    width:100%;
-    border:0;
-    border-radius:12px;
-    padding:13px;
-    background:#075e54;
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
+.authBox p{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:25px;
 }
 
-.auth-switch{
-    margin-top:18px;
-    color:#075e54;
-    font-size:13px;
-    cursor:pointer;
+.inputGroup{
+  margin-bottom:15px;
+}
+
+.inputGroup label{
+  display:block;
+  font-size:13px;
+  margin-bottom:6px;
+  color:var(--muted);
+}
+
+.inputGroup input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  outline:none;
+}
+
+.inputGroup input:focus{
+  border-color:var(--green);
+}
+
+.primaryBtn{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  background:var(--green);
+  color:white;
+  font-weight:bold;
+}
+
+.primaryBtn:active{
+  transform:scale(.98);
+}
+
+#recaptcha-container{
+  margin:10px 0;
+  display:flex;
+  justify-content:center;
+}
+
+.authMsg{
+  text-align:center;
+  font-size:13px;
+  color:#d32f2f;
+  margin-top:12px;
+}
+
+/* PROFILE */
+
+.profilePhotoBox{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.profilePreview{
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd;
+  border:4px solid #ddd;
+}
+
+.photoBtn{
+  margin-top:10px;
+  display:inline-block;
+  padding:8px 15px;
+  border-radius:20px;
+  background:#e8f5f2;
+  color:var(--darkgreen);
+  font-size:13px;
 }
 
 /* APP */
 
-.app{
-    width:100%;
-    max-width:500px;
-    height:100vh;
-    margin:auto;
-    background:#efeae2;
-    display:none;
-    flex-direction:column;
-    overflow:hidden;
+#app{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  max-width:900px;
+  margin:auto;
+  background:var(--white);
 }
 
-/* HEADER */
-
-.header{
-    height:65px;
-    background:#075e54;
-    color:white;
-    display:flex;
-    align-items:center;
-    padding:8px 12px;
-    justify-content:space-between;
+.topbar{
+  height:65px;
+  background:var(--green);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
 }
 
 .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.logo{
-    width:43px;
-    height:43px;
-    border-radius:50%;
-    background:#25d366;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:23px;
+.brandLogo{
+  font-size:30px;
 }
 
-.brand h2{
-    font-size:20px;
+.brandName{
+  font-size:21px;
+  font-weight:bold;
 }
 
-.header-icons{
-    display:flex;
-    gap:20px;
-    font-size:22px;
+.topActions{
+  display:flex;
+  gap:8px;
+}
+
+.iconBtn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:transparent;
+  color:white;
+  font-size:20px;
+}
+
+.iconBtn:active{
+  background:#ffffff22;
 }
 
 /* SEARCH */
 
-.search{
-    padding:8px;
-    background:#075e54;
+.searchBox{
+  padding:9px;
+  background:#fff;
 }
 
-.search input{
-    width:100%;
-    border:0;
-    outline:none;
-    border-radius:22px;
-    padding:11px 17px;
-    font-size:14px;
+.searchBox input{
+  width:100%;
+  padding:11px 15px;
+  border:0;
+  outline:0;
+  border-radius:22px;
+  background:var(--input);
 }
 
 /* TABS */
 
 .tabs{
-    height:48px;
-    background:#075e54;
-    color:white;
-    display:flex;
+  height:48px;
+  display:flex;
+  background:#fff;
+  border-bottom:1px solid #ddd;
 }
 
 .tab{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    font-size:14px;
-    cursor:pointer;
+  flex:1;
+  background:white;
+  font-weight:bold;
+  color:var(--muted);
 }
 
 .tab.active{
-    border-bottom:3px solid #25d366;
+  color:var(--darkgreen);
+  border-bottom:3px solid var(--green);
 }
 
-/* CHAT LIST */
+/* CONTENT */
 
-.chat-list{
-    flex:1;
-    overflow-y:auto;
-    background:white;
+.content{
+  flex:1;
+  overflow:auto;
+  background:#fff;
 }
 
-.chat{
-    height:75px;
-    display:flex;
-    align-items:center;
-    padding:10px 14px;
-    border-bottom:1px solid #eee;
-    cursor:pointer;
+.chatItem{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:12px 15px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
 }
 
-.chat:hover{
-    background:#f5f5f5;
+.chatItem:active{
+  background:#f5f5f5;
 }
 
-.chat-avatar{
-    width:52px;
-    height:52px;
-    border-radius:50%;
-    background:#ddd;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    margin-right:13px;
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
 }
 
-.chat-info{
-    flex:1;
+.chatInfo{
+  flex:1;
+  min-width:0;
 }
 
-.chat-info h3{
-    font-size:16px;
-    margin-bottom:5px;
+.chatTop{
+  display:flex;
+  justify-content:space-between;
 }
 
-.chat-info p{
-    color:#777;
-    font-size:13px;
+.chatName{
+  font-weight:bold;
 }
 
-.time{
-    font-size:11px;
-    color:#777;
+.chatTime{
+  font-size:11px;
+  color:var(--muted);
 }
 
-/* CONVERSATION */
-
-.conversation{
-    display:none;
-    flex-direction:column;
-    height:100%;
-    background:#efeae2;
+.lastMsg{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.conversation-header{
-    height:65px;
-    background:#075e54;
-    color:white;
-    display:flex;
-    align-items:center;
-    padding:8px;
-    gap:10px;
+/* PROFILE */
+
+.profilePage{
+  padding:25px 18px;
 }
 
-.back{
-    font-size:27px;
-    cursor:pointer;
+.profileHeader{
+  text-align:center;
+  padding:15px;
 }
 
-.conversation-user{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.profileHeader img{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  object-fit:cover;
 }
 
-.user-avatar{
-    width:43px;
-    height:43px;
-    border-radius:50%;
-    background:#ddd;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:21px;
+.profileHeader h2{
+  margin-top:10px;
 }
 
-.user-info h3{
-    font-size:16px;
+.profileHeader p{
+  color:var(--muted);
+  margin-top:5px;
 }
 
-.user-info p{
-    font-size:11px;
-    opacity:.8;
+.settingItem{
+  padding:16px;
+  border-bottom:1px solid #eee;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.call-icons{
-    margin-left:auto;
-    display:flex;
-    gap:17px;
-    font-size:20px;
+.settingItem span:first-child{
+  font-weight:bold;
 }
 
-/* MESSAGES */
+/* CHAT SCREEN */
+
+#chatScreen{
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+}
+
+.chatHeader{
+  height:65px;
+  background:var(--green);
+  color:white;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 10px;
+}
+
+.backBtn{
+  background:transparent;
+  color:white;
+  font-size:24px;
+  width:40px;
+}
+
+.chatUser{
+  flex:1;
+}
+
+.chatUser small{
+  display:block;
+  opacity:.8;
+  margin-top:3px;
+}
 
 .messages{
-    flex:1;
-    padding:15px;
-    overflow-y:auto;
+  flex:1;
+  overflow:auto;
+  padding:15px;
 }
 
 .message{
-    max-width:75%;
-    padding:9px 12px;
-    margin-bottom:8px;
-    border-radius:8px;
-    font-size:14px;
-    word-wrap:break-word;
+  max-width:78%;
+  padding:9px 11px;
+  margin:6px 0;
+  border-radius:10px;
+  position:relative;
+  font-size:14px;
+  line-height:1.4;
 }
 
 .received{
-    background:white;
-    margin-right:auto;
+  background:white;
+  margin-right:auto;
 }
 
 .sent{
-    background:#d9fdd3;
-    margin-left:auto;
+  background:#d9fdd3;
+  margin-left:auto;
 }
 
-.message small{
-    display:block;
-    text-align:right;
-    color:#777;
-    font-size:9px;
-    margin-top:4px;
+.messageTime{
+  font-size:9px;
+  color:#667;
+  float:right;
+  margin-left:8px;
+  margin-top:5px;
 }
 
-/* INPUT */
-
-.input-area{
-    min-height:62px;
-    background:#f0f0f0;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    padding:8px;
+.messageBar{
+  display:flex;
+  padding:8px;
+  gap:7px;
+  background:#f0f2f5;
 }
 
-.attach{
-    font-size:23px;
+.messageBar input{
+  flex:1;
+  border:0;
+  outline:0;
+  border-radius:22px;
+  padding:12px 15px;
 }
 
-.input-area input{
-    flex:1;
-    border:0;
-    outline:none;
-    border-radius:25px;
-    padding:12px 15px;
-    font-size:14px;
+.sendBtn{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--green);
+  color:white;
 }
 
-.send{
-    width:45px;
-    height:45px;
-    border:0;
-    border-radius:50%;
-    background:#25d366;
-    color:white;
-    font-size:19px;
-    cursor:pointer;
-}
-
-/* EMPTY */
+/* EXTRA */
 
 .empty{
-    padding:50px 20px;
-    text-align:center;
-    color:#777;
+  text-align:center;
+  padding:60px 20px;
+  color:var(--muted);
+}
+
+.notice{
+  background:#e7f7f3;
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  color:#126b5c;
+  margin-bottom:15px;
 }
 
 /* DARK MODE */
 
-.dark{
-    background:#111b21;
+body.dark{
+  --bg:#111b21;
+  --white:#111b21;
+  --text:#e9edef;
+  --muted:#aebac1;
+  --card:#202c33;
+  --input:#202c33;
 }
 
-.dark .chat-list{
-    background:#111b21;
-    color:white;
+body.dark .searchBox,
+body.dark .tabs,
+body.dark .tab,
+body.dark .content,
+body.dark .chatItem{
+  background:#111b21;
+  color:#e9edef;
 }
 
-.dark .chat{
-    border-color:#26343a;
+body.dark .chatItem{
+  border-color:#253139;
 }
 
-.dark .chat:hover{
-    background:#202c33;
+body.dark .tabs{
+  border-color:#253139;
 }
 
-.dark .chat-info p,
-.dark .time{
-    color:#aaa;
+body.dark .message.received{
+  background:#202c33;
+  color:#e9edef;
 }
 
-.dark .conversation{
-    background:#0b141a;
+body.dark .messageBar{
+  background:#202c33;
 }
 
-.dark .received{
-    background:#202c33;
-    color:white;
+body.dark .messageBar input{
+  background:#2a3942;
+  color:white;
 }
 
-.dark .input-area{
-    background:#202c33;
+body.dark .settingItem{
+  border-color:#253139;
 }
-
-.dark .input-area input{
-    background:#2a3942;
-    color:white;
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN / SIGNUP -->
+<!-- AUTH SCREEN -->
 
-<div id="auth">
+<section id="authScreen">
 
-    <div class="auth-box">
+  <div class="authBox">
 
-        <div class="auth-logo">🦋</div>
+    <div class="logo">🦋</div>
 
-        <h1>Duofly</h1>
+    <!-- PHONE -->
 
-        <p id="authText">
-            Sign in to continue
-        </p>
+    <div id="phoneStep">
 
+      <h1>Welcome to Duofly</h1>
+
+      <p>Login with your phone number</p>
+
+      <div class="inputGroup">
+        <label>Phone Number</label>
         <input
-        type="text"
-        id="nameInput"
-        placeholder="Your name"
-        style="display:none;">
+          id="phoneInput"
+          type="tel"
+          placeholder="+977 98XXXXXXXX"
+        >
+      </div>
 
-        <input
-        type="email"
-        id="emailInput"
-        placeholder="Email">
+      <div id="recaptcha-container"></div>
 
-        <input
-        type="password"
-        id="passwordInput"
-        placeholder="Password">
+      <button
+        class="primaryBtn"
+        id="sendOtpBtn"
+      >
+        Send Verification Code
+      </button>
 
-        <button
-        class="auth-btn"
-        onclick="handleAuth()"
-        id="authButton">
-        Login
-        </button>
-
-        <div
-        class="auth-switch"
-        onclick="switchAuth()"
-        id="switchText">
-        Don't have an account? Sign up
-        </div>
+      <div id="phoneMsg" class="authMsg"></div>
 
     </div>
 
-</div>
+    <!-- OTP -->
+
+    <div id="otpStep" class="hidden">
+
+      <h1>Verify Number</h1>
+
+      <p>Enter the 6-digit code sent to your phone.</p>
+
+      <div class="inputGroup">
+        <label>Verification Code</label>
+        <input
+          id="otpInput"
+          type="number"
+          inputmode="numeric"
+          maxlength="6"
+          placeholder="123456"
+        >
+      </div>
+
+      <button
+        class="primaryBtn"
+        id="verifyOtpBtn"
+      >
+        Verify & Continue
+      </button>
+
+      <div id="otpMsg" class="authMsg"></div>
+
+    </div>
+
+    <!-- PROFILE -->
+
+    <div id="profileStep" class="hidden">
+
+      <h1>Create Profile</h1>
+
+      <p>Set up your Duofly profile.</p>
+
+      <div class="profilePhotoBox">
+
+        <img
+          id="profilePreview"
+          class="profilePreview"
+          src=""
+          alt="Profile"
+        >
+
+        <br>
+
+        <label class="photoBtn">
+          Choose Profile Photo
+          <input
+            id="photoInput"
+            type="file"
+            accept="image/*"
+            hidden
+          >
+        </label>
+
+      </div>
+
+      <div class="inputGroup">
+        <label>Full Name</label>
+        <input
+          id="nameInput"
+          type="text"
+          maxlength="40"
+          placeholder="Your name"
+        >
+      </div>
+
+      <div class="inputGroup">
+        <label>Username</label>
+        <input
+          id="usernameInput"
+          type="text"
+          maxlength="20"
+          placeholder="username"
+        >
+      </div>
+
+      <button
+        class="primaryBtn"
+        id="createProfileBtn"
+      >
+        Create Profile
+      </button>
+
+      <div id="profileMsg" class="authMsg"></div>
+
+    </div>
+
+  </div>
+
+</section>
 
 
 <!-- MAIN APP -->
 
-<div class="app" id="app">
+<section id="app" class="hidden">
 
-    <div id="home">
+  <header class="topbar">
 
-        <div class="header">
+    <div class="brand">
+      <span class="brandLogo">🦋</span>
+      <span class="brandName">Duofly</span>
+    </div>
 
-            <div class="brand">
+    <div class="topActions">
+      <button class="iconBtn" onclick="showNewChat()">＋</button>
+      <button class="iconBtn" onclick="toggleSearch()">🔍</button>
+      <button class="iconBtn" onclick="openProfile()">⋮</button>
+    </div>
 
-                <div class="logo">🦋</div>
+  </header>
 
-                <h2>Duofly</h2>
+  <div id="searchArea" class="searchBox hidden">
+    <input
+      id="searchInput"
+      placeholder="Search chats..."
+    >
+  </div>
 
-            </div>
+  <nav class="tabs">
 
-            <div class="header-icons">
-                <span>📷</span>
-                <span>⋮</span>
-            </div>
+    <button
+      class="tab active"
+      onclick="switchTab('chats',this)"
+    >
+      CHATS
+    </button>
+
+    <button
+      class="tab"
+      onclick="switchTab('updates',this)"
+    >
+      UPDATES
+    </button>
+
+    <button
+      class="tab"
+      onclick="switchTab('calls',this)"
+    >
+      CALLS
+    </button>
+
+  </nav>
+
+  <main id="content" class="content"></main>
+
+</section>
+
+
+<!-- CHAT SCREEN -->
+
+<section id="chatScreen" class="hidden">
+
+  <header class="chatHeader">
+
+    <button class="backBtn" onclick="closeChat()">‹</button>
+
+    <div id="chatAvatar" class="avatar">
+      👤
+    </div>
+
+    <div class="chatUser">
+      <b id="chatName">User</b>
+      <small id="chatStatus">online</small>
+    </div>
+
+    <button class="iconBtn" onclick="fakeCall('Voice')">📞</button>
+    <button class="iconBtn" onclick="fakeCall('Video')">📹</button>
+
+  </header>
+
+  <div id="messages" class="messages"></div>
+
+  <div class="messageBar">
+
+    <button class="iconBtn" style="color:#667781"
+            onclick="addEmoji()">
+      😊
+    </button>
+
+    <input
+      id="messageInput"
+      placeholder="Type a message..."
+    >
+
+    <button
+      class="sendBtn"
+      onclick="sendMessage()"
+    >
+      ➤
+    </button>
+
+  </div>
+
+</section>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE
+   ===================================================== */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  where
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+
+/* =====================================================
+   PASTE YOUR FIREBASE CONFIG HERE
+   ===================================================== */
+
+const firebaseConfig = {
+
+  apiKey: "PASTE_API_KEY",
+
+  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
+
+  projectId: "PASTE_PROJECT_ID",
+
+  storageBucket: "PASTE_STORAGE_BUCKET",
+
+  messagingSenderId: "PASTE_MESSAGING_SENDER_ID",
+
+  appId: "PASTE_APP_ID"
+
+};
+
+
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
+const appFirebase = initializeApp(firebaseConfig);
+
+const auth = getAuth(appFirebase);
+
+const db = getFirestore(appFirebase);
+
+const storage = getStorage(appFirebase);
+
+
+/* =====================================================
+   VARIABLES
+   ===================================================== */
+
+let confirmationResult = null;
+
+let recaptchaVerifier = null;
+
+let currentUser = null;
+
+let selectedPhoto = null;
+
+let currentChat = null;
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const authScreen =
+  document.getElementById("authScreen");
+
+const appScreen =
+  document.getElementById("app");
+
+const phoneStep =
+  document.getElementById("phoneStep");
+
+const otpStep =
+  document.getElementById("otpStep");
+
+const profileStep =
+  document.getElementById("profileStep");
+
+
+/* =====================================================
+   DEFAULT AVATAR
+   ===================================================== */
+
+document.getElementById("profilePreview").src =
+  "https://ui-avatars.com/api/?name=Duofly&background=00a884&color=fff&size=200";
+
+
+/* =====================================================
+   PHONE LOGIN
+   ===================================================== */
+
+document
+.getElementById("sendOtpBtn")
+.addEventListener("click", async () => {
+
+  const phone =
+    document.getElementById("phoneInput")
+    .value.trim();
+
+  const msg =
+    document.getElementById("phoneMsg");
+
+  msg.textContent = "";
+
+  if(!phone){
+
+    msg.textContent =
+      "Please enter your phone number.";
+
+    return;
+  }
+
+  if(!phone.startsWith("+")){
+
+    msg.textContent =
+      "Use international format, e.g. +97798XXXXXXXX";
+
+    return;
+  }
+
+  try{
+
+    if(recaptchaVerifier){
+      recaptchaVerifier.clear();
+    }
+
+    recaptchaVerifier =
+      new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+          size:"normal"
+        }
+      );
+
+    await recaptchaVerifier.render();
+
+    confirmationResult =
+      await signInWithPhoneNumber(
+        auth,
+        phone,
+        recaptchaVerifier
+      );
+
+    phoneStep.classList.add("hidden");
+
+    otpStep.classList.remove("hidden");
+
+  }catch(error){
+
+    console.error(error);
+
+    msg.textContent =
+      error.message || "Could not send OTP.";
+
+    if(recaptchaVerifier){
+      recaptchaVerifier.clear();
+      recaptchaVerifier = null;
+    }
+
+  }
+
+});
+
+
+/* =====================================================
+   OTP VERIFY
+   ===================================================== */
+
+document
+.getElementById("verifyOtpBtn")
+.addEventListener("click", async () => {
+
+  const code =
+    document.getElementById("otpInput")
+    .value.trim();
+
+  const msg =
+    document.getElementById("otpMsg");
+
+  msg.textContent = "";
+
+  if(code.length !== 6){
+
+    msg.textContent =
+      "Enter the 6-digit verification code.";
+
+    return;
+  }
+
+  if(!confirmationResult){
+
+    msg.textContent =
+      "Please request a new code.";
+
+    return;
+  }
+
+  try{
+
+    await confirmationResult.confirm(code);
+
+  }catch(error){
+
+    console.error(error);
+
+    msg.textContent =
+      "Invalid verification code.";
+
+  }
+
+});
+
+
+/* =====================================================
+   AUTH STATE
+   ===================================================== */
+
+onAuthStateChanged(auth, async (user) => {
+
+  if(!user){
+
+    currentUser = null;
+
+    authScreen.classList.remove("hidden");
+
+    appScreen.classList.add("hidden");
+
+    return;
+  }
+
+  currentUser = user;
+
+  const userRef =
+    doc(db,"users",user.uid);
+
+  const userSnap =
+    await getDoc(userRef);
+
+  authScreen.classList.add("hidden");
+
+  if(userSnap.exists()){
+
+    const data = userSnap.data();
+
+    localStorage.setItem(
+      "duoflyProfile",
+      JSON.stringify(data)
+    );
+
+    appScreen.classList.remove("hidden");
+
+    renderChats();
+
+  }else{
+
+    authScreen.classList.remove("hidden");
+
+    appScreen.classList.add("hidden");
+
+    phoneStep.classList.add("hidden");
+
+    otpStep.classList.add("hidden");
+
+    profileStep.classList.remove("hidden");
+
+  }
+
+});
+
+
+/* =====================================================
+   PROFILE PHOTO
+   ===================================================== */
+
+document
+.getElementById("photoInput")
+.addEventListener("change",(e)=>{
+
+  const file = e.target.files[0];
+
+  if(!file) return;
+
+  selectedPhoto = file;
+
+  const reader =
+    new FileReader();
+
+  reader.onload = () => {
+
+    document
+    .getElementById("profilePreview")
+    .src = reader.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+
+/* =====================================================
+   CREATE PROFILE
+   ===================================================== */
+
+document
+.getElementById("createProfileBtn")
+.addEventListener("click", async () => {
+
+  const name =
+    document.getElementById("nameInput")
+    .value.trim();
+
+  let username =
+    document.getElementById("usernameInput")
+    .value.trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g,"");
+
+  const msg =
+    document.getElementById("profileMsg");
+
+  msg.textContent = "";
+
+  if(name.length < 2){
+
+    msg.textContent =
+      "Enter your name.";
+
+    return;
+  }
+
+  if(username.length < 3){
+
+    msg.textContent =
+      "Username must be at least 3 characters.";
+
+    return;
+  }
+
+  try{
+
+    /* Check username */
+
+    const usernameQuery =
+      query(
+        collection(db,"users"),
+        where("username","==",username)
+      );
+
+    const usernameSnap =
+      await getDocs(usernameQuery);
+
+    if(!usernameSnap.empty){
+
+      msg.textContent =
+        "This username is already taken.";
+
+      return;
+    }
+
+
+    /* Profile photo */
+
+    let photoURL =
+      "https://ui-avatars.com/api/?name="
+      + encodeURIComponent(name)
+      + "&background=00a884&color=fff&size=200";
+
+
+    if(selectedPhoto){
+
+      const photoRef =
+        ref(
+          storage,
+          "profilePhotos/"
+          + currentUser.uid
+          + "/profile.jpg"
+        );
+
+      await uploadBytes(
+        photoRef,
+        selectedPhoto
+      );
+
+      photoURL =
+        await getDownloadURL(photoRef);
+
+    }
+
+
+    /* Save profile */
+
+    const profile = {
+
+      uid: currentUser.uid,
+
+      phone: currentUser.phoneNumber || "",
+
+      name: name,
+
+      username: username,
+
+      photoURL: photoURL,
+
+      createdAt: Date.now()
+
+    };
+
+
+    await setDoc(
+      doc(db,"users",currentUser.uid),
+      profile
+    );
+
+
+    localStorage.setItem(
+      "duoflyProfile",
+      JSON.stringify(profile)
+    );
+
+
+    authScreen.classList.add("hidden");
+
+    appScreen.classList.remove("hidden");
+
+    renderChats();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    msg.textContent =
+      error.message ||
+      "Profile creation failed.";
+
+  }
+
+});
+
+
+/* =====================================================
+   RENDER CHATS
+   ===================================================== */
+
+window.renderChats = function(){
+
+  const content =
+    document.getElementById("content");
+
+  content.innerHTML = `
+
+    <div class="chatItem"
+         onclick="openChat('Alex','👨🏻')">
+
+      <div class="avatar">👨🏻</div>
+
+      <div class="chatInfo">
+
+        <div class="chatTop">
+
+          <span class="chatName">
+            Alex
+          </span>
+
+          <span class="chatTime">
+            10:25
+          </span>
 
         </div>
 
-        <div class="search">
-
-            <input
-            type="text"
-            id="search"
-            placeholder="Search or start new chat">
-
+        <div class="lastMsg">
+          Hey! Welcome to Duofly 👋
         </div>
 
-        <div class="tabs">
-
-            <div
-            class="tab active"
-            onclick="showTab('chats',this)">
-            CHATS
-            </div>
-
-            <div
-            class="tab"
-            onclick="showTab('updates',this)">
-            UPDATES
-            </div>
-
-            <div
-            class="tab"
-            onclick="showTab('calls',this)">
-            CALLS
-            </div>
-
-        </div>
-
-        <div
-        class="chat-list"
-        id="chatList">
-
-            <div
-            class="chat"
-            data-name="Alex"
-            onclick="openChat('Alex','👨🏻')">
-
-                <div class="chat-avatar">👨🏻</div>
-
-                <div class="chat-info">
-                    <h3>Alex</h3>
-                    <p>Hey! How are you? 👋</p>
-                </div>
-
-                <div class="time">10:25</div>
-
-            </div>
-
-
-            <div
-            class="chat"
-            data-name="Sarah"
-            onclick="openChat('Sarah','👩🏻')">
-
-                <div class="chat-avatar">👩🏻</div>
-
-                <div class="chat-info">
-                    <h3>Sarah</h3>
-                    <p>See you tomorrow!</p>
-                </div>
-
-                <div class="time">09:42</div>
-
-            </div>
-
-
-            <div
-            class="chat"
-            data-name="Friend"
-            onclick="openChat('Friend','🧑🏻')">
-
-                <div class="chat-avatar">🧑🏻</div>
-
-                <div class="chat-info">
-                    <h3>Friend</h3>
-                    <p>That's awesome 🔥</p>
-                </div>
-
-                <div class="time">Yesterday</div>
-
-            </div>
-
-        </div>
+      </div>
 
     </div>
 
 
-    <!-- CONVERSATION -->
+    <div class="chatItem"
+         onclick="openChat('Sarah','👩🏻')">
 
-    <div
-    class="conversation"
-    id="conversation">
+      <div class="avatar">👩🏻</div>
 
-        <div class="conversation-header">
+      <div class="chatInfo">
 
-            <span
-            class="back"
-            onclick="closeChat()">
-            ‹
-            </span>
+        <div class="chatTop">
 
-            <div class="conversation-user">
+          <span class="chatName">
+            Sarah
+          </span>
 
-                <div
-                class="user-avatar"
-                id="userAvatar">
-                👨🏻
-                </div>
-
-                <div class="user-info">
-
-                    <h3 id="userName">
-                    Alex
-                    </h3>
-
-                    <p>online</p>
-
-                </div>
-
-            </div>
-
-            <div class="call-icons">
-                <span>📹</span>
-                <span>📞</span>
-                <span>⋮</span>
-            </div>
+          <span class="chatTime">
+            09:10
+          </span>
 
         </div>
 
-
-        <div
-        class="messages"
-        id="messages">
-
-            <div class="message received">
-                Hello! 👋
-                <small>10:20 ✓✓</small>
-            </div>
-
-            <div class="message received">
-                How are you?
-                <small>10:21 ✓✓</small>
-            </div>
-
-            <div class="message sent">
-                I'm fine 😎
-                <small>10:22 ✓✓</small>
-            </div>
-
+        <div class="lastMsg">
+          How are you?
         </div>
 
-
-        <div class="input-area">
-
-            <span class="attach">📎</span>
-
-            <input
-            type="text"
-            id="messageInput"
-            placeholder="Type a message...">
-
-            <button
-            class="send"
-            onclick="sendMessage()">
-            ➤
-            </button>
-
-        </div>
+      </div>
 
     </div>
 
-</div>
 
+    <div class="chatItem"
+         onclick="openChat('Friend','🧑🏻')">
 
-<script>
+      <div class="avatar">🧑🏻</div>
 
-let isSignup = false;
+      <div class="chatInfo">
 
+        <div class="chatTop">
 
-/* LOGIN / SIGNUP SWITCH */
+          <span class="chatName">
+            Friend
+          </span>
 
-function switchAuth(){
+          <span class="chatTime">
+            Yesterday
+          </span>
 
-    isSignup = !isSignup;
+        </div>
 
-    const name =
-    document.getElementById("nameInput");
+        <div class="lastMsg">
+          See you tomorrow!
+        </div>
 
-    const text =
-    document.getElementById("authText");
+      </div>
 
-    const button =
-    document.getElementById("authButton");
+    </div>
 
-    const switchText =
-    document.getElementById("switchText");
+  `;
 
-    if(isSignup){
+};
 
-        name.style.display="block";
 
-        text.textContent=
-        "Create your Duofly account";
+/* =====================================================
+   TABS
+   ===================================================== */
 
-        button.textContent="Sign Up";
+window.switchTab = function(tab,button){
 
-        switchText.textContent=
-        "Already have an account? Login";
+  document
+  .querySelectorAll(".tab")
+  .forEach(x=>x.classList.remove("active"));
 
-    }else{
+  button.classList.add("active");
 
-        name.style.display="none";
+  const content =
+    document.getElementById("content");
 
-        text.textContent=
-        "Sign in to continue";
 
-        button.textContent="Login";
+  if(tab==="chats"){
 
-        switchText.textContent=
-        "Don't have an account? Sign up";
-    }
-}
+    renderChats();
 
+  }
 
-/* DEMO AUTH */
 
-function handleAuth(){
+  if(tab==="updates"){
 
-    const email =
-    document.getElementById("emailInput").value.trim();
+    content.innerHTML = `
 
-    const password =
-    document.getElementById("passwordInput").value.trim();
+      <div class="empty">
 
-    if(isSignup){
+        <h2>Updates</h2>
 
-        const name =
-        document.getElementById("nameInput").value.trim();
+        <p>Status updates will appear here.</p>
 
-        if(name==="" || email==="" || password===""){
-            alert("Please fill all fields.");
-            return;
-        }
+      </div>
 
-        localStorage.setItem(
-            "duoflyName",
-            name
-        );
+    `;
 
-        localStorage.setItem(
-            "duoflyLoggedIn",
-            "true"
-        );
+  }
 
-        openApp();
 
-    }else{
+  if(tab==="calls"){
 
-        if(email==="" || password===""){
-            alert("Please enter email and password.");
-            return;
-        }
+    content.innerHTML = `
 
-        localStorage.setItem(
-            "duoflyLoggedIn",
-            "true"
-        );
+      <div class="empty">
 
-        openApp();
-    }
-}
+        <h2>Calls</h2>
 
+        <p>Your recent calls will appear here.</p>
 
-/* OPEN APP */
+      </div>
 
-function openApp(){
+    `;
 
-    document.getElementById("auth").style.display="none";
+  }
 
-    document.getElementById("app").style.display="flex";
-}
+};
 
 
-/* AUTO LOGIN */
+/* =====================================================
+   SEARCH
+   ===================================================== */
 
-if(
-    localStorage.getItem("duoflyLoggedIn")
-    === "true"
-){
+window.toggleSearch = function(){
 
-    openApp();
-}
+  document
+  .getElementById("searchArea")
+  .classList.toggle("hidden");
 
+};
 
-/* OPEN CHAT */
 
-function openChat(name, avatar){
+document
+.getElementById("searchInput")
+.addEventListener("input",(e)=>{
 
-    document.getElementById("home").style.display="none";
+  const value =
+    e.target.value.toLowerCase();
 
-    document.getElementById("conversation").style.display="flex";
+  document
+  .querySelectorAll(".chatItem")
+  .forEach(item=>{
 
-    document.getElementById("userName").textContent=name;
+    item.style.display =
+      item.innerText
+      .toLowerCase()
+      .includes(value)
+      ? "flex"
+      : "none";
 
-    document.getElementById("userAvatar").textContent=avatar;
-}
+  });
 
+});
 
-/* CLOSE CHAT */
 
-function closeChat(){
+/* =====================================================
+   OPEN CHAT
+   ===================================================== */
 
-    document.getElementById("conversation").style.display="none";
+window.openChat = function(name,avatar){
 
-    document.getElementById("home").style.display="block";
-}
+  currentChat = name;
 
+  document
+  .getElementById("chatName")
+  .textContent = name;
 
-/* SEND MESSAGE */
+  document
+  .getElementById("chatAvatar")
+  .textContent = avatar;
 
-function sendMessage(){
+  document
+  .getElementById("chatScreen")
+  .classList.remove("hidden");
 
-    const input =
-    document.getElementById("messageInput");
+  loadMessages();
 
-    const text =
-    input.value.trim();
+};
 
-    if(text==="") return;
 
-    const messages =
+/* =====================================================
+   CLOSE CHAT
+   ===================================================== */
+
+window.closeChat = function(){
+
+  document
+  .getElementById("chatScreen")
+  .classList.add("hidden");
+
+};
+
+
+/* =====================================================
+   MESSAGE STORAGE
+   ===================================================== */
+
+function loadMessages(){
+
+  const messages =
     document.getElementById("messages");
 
-    const message =
-    document.createElement("div");
+  const key =
+    "duoflyMessages_" + currentChat;
 
-    message.className="message sent";
+  const saved =
+    JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
 
-    message.textContent=text;
 
-    const time =
-    document.createElement("small");
+  if(saved.length===0){
 
-    time.textContent="Just now ✓";
+    saved.push({
 
-    message.appendChild(time);
+      type:"received",
 
-    messages.appendChild(message);
+      text:"Hey! Welcome to Duofly 👋"
 
-    input.value="";
+    });
 
-    messages.scrollTop=
-    messages.scrollHeight;
+  }
+
+
+  messages.innerHTML = "";
+
+  saved.forEach(message=>{
+
+    addMessageUI(
+      message.text,
+      message.type
+    );
+
+  });
+
 }
 
 
-/* ENTER TO SEND */
+function addMessageUI(text,type){
+
+  const messages =
+    document.getElementById("messages");
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "message " + type;
+
+  div.innerHTML =
+    escapeHTML(text)
+    + `<span class="messageTime">
+         ${new Date().toLocaleTimeString(
+           [],
+           {hour:"2-digit",minute:"2-digit"}
+         )}
+       </span>`;
+
+  messages.appendChild(div);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   SEND MESSAGE
+   ===================================================== */
+
+window.sendMessage = function(){
+
+  const input =
+    document.getElementById("messageInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text) return;
+
+
+  const key =
+    "duoflyMessages_" + currentChat;
+
+  const saved =
+    JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
+
+
+  saved.push({
+
+    type:"sent",
+
+    text:text
+
+  });
+
+
+  localStorage.setItem(
+    key,
+    JSON.stringify(saved)
+  );
+
+
+  addMessageUI(
+    text,
+    "sent"
+  );
+
+
+  input.value = "";
+
+};
+
+
+/* ENTER SEND */
 
 document
 .getElementById("messageInput")
-.addEventListener(
-"keydown",
-function(event){
+.addEventListener("keydown",(e)=>{
 
-    if(event.key==="Enter"){
-        sendMessage();
-    }
+  if(e.key==="Enter"){
 
-});
+    sendMessage();
 
-
-/* SEARCH */
-
-document
-.getElementById("search")
-.addEventListener(
-"input",
-function(){
-
-    const value =
-    this.value.toLowerCase();
-
-    document
-    .querySelectorAll(".chat")
-    .forEach(function(chat){
-
-        const name =
-        chat.dataset.name.toLowerCase();
-
-        chat.style.display =
-        name.includes(value)
-        ? "flex"
-        : "none";
-
-    });
+  }
 
 });
 
 
-/* TABS */
+/* =====================================================
+   PROFILE
+   ===================================================== */
 
-function showTab(tab, element){
+window.openProfile = function(){
 
-    document
-    .querySelectorAll(".tab")
-    .forEach(function(item){
+  const profile =
+    JSON.parse(
+      localStorage.getItem(
+        "duoflyProfile"
+      ) || "{}"
+    );
 
-        item.classList.remove("active");
+  const content =
+    document.getElementById("content");
 
-    });
 
-    element.classList.add("active");
+  content.innerHTML = `
 
-    const list =
-    document.getElementById("chatList");
+    <div class="profilePage">
 
-    if(tab==="chats"){
+      <div class="profileHeader">
 
-        location.reload();
+        <img
+          src="${profile.photoURL || ""}"
+        >
 
-    }
+        <h2>
+          ${escapeHTML(
+            profile.name || "Duofly User"
+          )}
+        </h2>
 
-    if(tab==="updates"){
+        <p>
+          @${escapeHTML(
+            profile.username || "username"
+          )}
+        </p>
 
-        list.innerHTML =
-        '<div class="empty">🟢<br><br>No new updates</div>';
+      </div>
 
-    }
 
-    if(tab==="calls"){
+      <div class="settingItem">
 
-        list.innerHTML =
-        '<div class="empty">📞<br><br>No recent calls</div>';
+        <span>📱 Phone</span>
 
-    }
+        <span>
+          ${escapeHTML(
+            profile.phone || ""
+          )}
+        </span>
+
+      </div>
+
+
+      <div
+        class="settingItem"
+        onclick="toggleDarkMode()"
+      >
+
+        <span>🌙 Dark Mode</span>
+
+        <span>›</span>
+
+      </div>
+
+
+      <div
+        class="settingItem"
+        onclick="showStarred()"
+      >
+
+        <span>⭐ Starred Messages</span>
+
+        <span>›</span>
+
+      </div>
+
+
+      <div
+        class="settingItem"
+        onclick="logout()"
+        style="color:#d32f2f"
+      >
+
+        <span>🚪 Logout</span>
+
+        <span>›</span>
+
+      </div>
+
+    </div>
+
+  `;
+
+};
+
+
+/* =====================================================
+   NEW CHAT
+   ===================================================== */
+
+window.showNewChat = function(){
+
+  const username =
+    prompt(
+      "Enter Duofly username:"
+    );
+
+  if(!username) return;
+
+  alert(
+    "Username search will connect to Firestore in the next step."
+  );
+
+};
+
+
+/* =====================================================
+   DARK MODE
+   ===================================================== */
+
+window.toggleDarkMode = function(){
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "duoflyDark",
+    document.body.classList.contains("dark")
+  );
+
+};
+
+
+/* Restore dark mode */
+
+if(
+  localStorage.getItem("duoflyDark")
+  === "true"
+){
+
+  document.body.classList.add("dark");
 
 }
+
+
+/* =====================================================
+   STARRED
+   ===================================================== */
+
+window.showStarred = function(){
+
+  document.getElementById("content")
+  .innerHTML = `
+
+    <div class="empty">
+
+      <h2>⭐ Starred Messages</h2>
+
+      <p>
+        Your starred messages will appear here.
+      </p>
+
+    </div>
+
+  `;
+
+};
+
+
+/* =====================================================
+   CALL
+   ===================================================== */
+
+window.fakeCall = function(type){
+
+  alert(
+    type +
+    " calling will be connected after the realtime calling system is added."
+  );
+
+};
+
+
+/* =====================================================
+   EMOJI
+   ===================================================== */
+
+window.addEmoji = function(){
+
+  const input =
+    document.getElementById("messageInput");
+
+  input.value += " 😊";
+
+  input.focus();
+
+};
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+window.logout = async function(){
+
+  try{
+
+    await signOut(auth);
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
 
 </script>
 
 </body>
-</html>
+    </html>
