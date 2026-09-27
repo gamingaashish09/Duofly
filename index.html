@@ -18,13 +18,95 @@ body{
     background:#d7dbd6;
 }
 
-.app{
+button,input{
+    font-family:inherit;
+}
+
+/* LOGIN */
+
+#auth{
     width:100%;
     max-width:500px;
     height:100vh;
     margin:auto;
     background:#efeae2;
     display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+}
+
+.auth-box{
+    width:100%;
+    max-width:380px;
+    background:white;
+    border-radius:20px;
+    padding:30px 24px;
+    box-shadow:0 8px 30px rgba(0,0,0,.12);
+    text-align:center;
+}
+
+.auth-logo{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#25d366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    margin:0 auto 15px;
+}
+
+.auth-box h1{
+    color:#075e54;
+    margin-bottom:7px;
+}
+
+.auth-box p{
+    color:#777;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.auth-box input{
+    width:100%;
+    border:1px solid #ddd;
+    outline:none;
+    border-radius:12px;
+    padding:13px;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+.auth-btn{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:13px;
+    background:#075e54;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.auth-switch{
+    margin-top:18px;
+    color:#075e54;
+    font-size:13px;
+    cursor:pointer;
+}
+
+/* APP */
+
+.app{
+    width:100%;
+    max-width:500px;
+    height:100vh;
+    margin:auto;
+    background:#efeae2;
+    display:none;
     flex-direction:column;
     overflow:hidden;
 }
@@ -230,7 +312,6 @@ body{
     margin-bottom:8px;
     border-radius:8px;
     font-size:14px;
-    position:relative;
     word-wrap:break-word;
 }
 
@@ -252,7 +333,7 @@ body{
     margin-top:4px;
 }
 
-/* MESSAGE INPUT */
+/* INPUT */
 
 .input-area{
     min-height:62px;
@@ -287,7 +368,7 @@ body{
     cursor:pointer;
 }
 
-/* EMPTY TAB */
+/* EMPTY */
 
 .empty{
     padding:50px 20px;
@@ -342,187 +423,374 @@ body{
 
 <body>
 
-<div class="app" id="app">
+<!-- LOGIN / SIGNUP -->
 
-<!-- HOME -->
+<div id="auth">
 
-<div id="home">
+    <div class="auth-box">
 
-    <div class="header">
+        <div class="auth-logo">🦋</div>
 
-        <div class="brand">
+        <h1>Duofly</h1>
 
-            <div class="logo">🦋</div>
-
-            <h2>Duofly</h2>
-
-        </div>
-
-        <div class="header-icons">
-            <span>📷</span>
-            <span>⋮</span>
-        </div>
-
-    </div>
-
-    <div class="search">
-        <input
-        type="text"
-        id="search"
-        placeholder="Search or start new chat">
-    </div>
-
-    <div class="tabs">
-
-        <div class="tab active"
-        onclick="showTab('chats',this)">
-        CHATS
-        </div>
-
-        <div class="tab"
-        onclick="showTab('updates',this)">
-        UPDATES
-        </div>
-
-        <div class="tab"
-        onclick="showTab('calls',this)">
-        CALLS
-        </div>
-
-    </div>
-
-    <div class="chat-list" id="chatList">
-
-        <div class="chat"
-        data-name="Alex"
-        onclick="openChat('Alex','👨🏻')">
-
-            <div class="chat-avatar">👨🏻</div>
-
-            <div class="chat-info">
-                <h3>Alex</h3>
-                <p>Hey! How are you? 👋</p>
-            </div>
-
-            <div class="time">10:25</div>
-
-        </div>
-
-
-        <div class="chat"
-        data-name="Sarah"
-        onclick="openChat('Sarah','👩🏻')">
-
-            <div class="chat-avatar">👩🏻</div>
-
-            <div class="chat-info">
-                <h3>Sarah</h3>
-                <p>See you tomorrow!</p>
-            </div>
-
-            <div class="time">09:42</div>
-
-        </div>
-
-
-        <div class="chat"
-        data-name="Friend"
-        onclick="openChat('Friend','🧑🏻')">
-
-            <div class="chat-avatar">🧑🏻</div>
-
-            <div class="chat-info">
-                <h3>Friend</h3>
-                <p>That's awesome 🔥</p>
-            </div>
-
-            <div class="time">Yesterday</div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- CONVERSATION -->
-
-<div class="conversation" id="conversation">
-
-    <div class="conversation-header">
-
-        <span class="back"
-        onclick="closeChat()">‹</span>
-
-        <div class="conversation-user">
-
-            <div class="user-avatar"
-            id="userAvatar">
-            👨🏻
-            </div>
-
-            <div class="user-info">
-
-                <h3 id="userName">Alex</h3>
-
-                <p>online</p>
-
-            </div>
-
-        </div>
-
-        <div class="call-icons">
-            <span>📹</span>
-            <span>📞</span>
-            <span>⋮</span>
-        </div>
-
-    </div>
-
-
-    <div class="messages" id="messages">
-
-        <div class="message received">
-            Hello! 👋
-            <small>10:20 ✓✓</small>
-        </div>
-
-        <div class="message received">
-            How are you?
-            <small>10:21 ✓✓</small>
-        </div>
-
-        <div class="message sent">
-            I'm fine 😎
-            <small>10:22 ✓✓</small>
-        </div>
-
-    </div>
-
-
-    <div class="input-area">
-
-        <span class="attach">📎</span>
+        <p id="authText">
+            Sign in to continue
+        </p>
 
         <input
         type="text"
-        id="messageInput"
-        placeholder="Type a message...">
+        id="nameInput"
+        placeholder="Your name"
+        style="display:none;">
+
+        <input
+        type="email"
+        id="emailInput"
+        placeholder="Email">
+
+        <input
+        type="password"
+        id="passwordInput"
+        placeholder="Password">
 
         <button
-        class="send"
-        onclick="sendMessage()">
-        ➤
+        class="auth-btn"
+        onclick="handleAuth()"
+        id="authButton">
+        Login
         </button>
+
+        <div
+        class="auth-switch"
+        onclick="switchAuth()"
+        id="switchText">
+        Don't have an account? Sign up
+        </div>
 
     </div>
 
 </div>
+
+
+<!-- MAIN APP -->
+
+<div class="app" id="app">
+
+    <div id="home">
+
+        <div class="header">
+
+            <div class="brand">
+
+                <div class="logo">🦋</div>
+
+                <h2>Duofly</h2>
+
+            </div>
+
+            <div class="header-icons">
+                <span>📷</span>
+                <span>⋮</span>
+            </div>
+
+        </div>
+
+        <div class="search">
+
+            <input
+            type="text"
+            id="search"
+            placeholder="Search or start new chat">
+
+        </div>
+
+        <div class="tabs">
+
+            <div
+            class="tab active"
+            onclick="showTab('chats',this)">
+            CHATS
+            </div>
+
+            <div
+            class="tab"
+            onclick="showTab('updates',this)">
+            UPDATES
+            </div>
+
+            <div
+            class="tab"
+            onclick="showTab('calls',this)">
+            CALLS
+            </div>
+
+        </div>
+
+        <div
+        class="chat-list"
+        id="chatList">
+
+            <div
+            class="chat"
+            data-name="Alex"
+            onclick="openChat('Alex','👨🏻')">
+
+                <div class="chat-avatar">👨🏻</div>
+
+                <div class="chat-info">
+                    <h3>Alex</h3>
+                    <p>Hey! How are you? 👋</p>
+                </div>
+
+                <div class="time">10:25</div>
+
+            </div>
+
+
+            <div
+            class="chat"
+            data-name="Sarah"
+            onclick="openChat('Sarah','👩🏻')">
+
+                <div class="chat-avatar">👩🏻</div>
+
+                <div class="chat-info">
+                    <h3>Sarah</h3>
+                    <p>See you tomorrow!</p>
+                </div>
+
+                <div class="time">09:42</div>
+
+            </div>
+
+
+            <div
+            class="chat"
+            data-name="Friend"
+            onclick="openChat('Friend','🧑🏻')">
+
+                <div class="chat-avatar">🧑🏻</div>
+
+                <div class="chat-info">
+                    <h3>Friend</h3>
+                    <p>That's awesome 🔥</p>
+                </div>
+
+                <div class="time">Yesterday</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONVERSATION -->
+
+    <div
+    class="conversation"
+    id="conversation">
+
+        <div class="conversation-header">
+
+            <span
+            class="back"
+            onclick="closeChat()">
+            ‹
+            </span>
+
+            <div class="conversation-user">
+
+                <div
+                class="user-avatar"
+                id="userAvatar">
+                👨🏻
+                </div>
+
+                <div class="user-info">
+
+                    <h3 id="userName">
+                    Alex
+                    </h3>
+
+                    <p>online</p>
+
+                </div>
+
+            </div>
+
+            <div class="call-icons">
+                <span>📹</span>
+                <span>📞</span>
+                <span>⋮</span>
+            </div>
+
+        </div>
+
+
+        <div
+        class="messages"
+        id="messages">
+
+            <div class="message received">
+                Hello! 👋
+                <small>10:20 ✓✓</small>
+            </div>
+
+            <div class="message received">
+                How are you?
+                <small>10:21 ✓✓</small>
+            </div>
+
+            <div class="message sent">
+                I'm fine 😎
+                <small>10:22 ✓✓</small>
+            </div>
+
+        </div>
+
+
+        <div class="input-area">
+
+            <span class="attach">📎</span>
+
+            <input
+            type="text"
+            id="messageInput"
+            placeholder="Type a message...">
+
+            <button
+            class="send"
+            onclick="sendMessage()">
+            ➤
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
 
 <script>
+
+let isSignup = false;
+
+
+/* LOGIN / SIGNUP SWITCH */
+
+function switchAuth(){
+
+    isSignup = !isSignup;
+
+    const name =
+    document.getElementById("nameInput");
+
+    const text =
+    document.getElementById("authText");
+
+    const button =
+    document.getElementById("authButton");
+
+    const switchText =
+    document.getElementById("switchText");
+
+    if(isSignup){
+
+        name.style.display="block";
+
+        text.textContent=
+        "Create your Duofly account";
+
+        button.textContent="Sign Up";
+
+        switchText.textContent=
+        "Already have an account? Login";
+
+    }else{
+
+        name.style.display="none";
+
+        text.textContent=
+        "Sign in to continue";
+
+        button.textContent="Login";
+
+        switchText.textContent=
+        "Don't have an account? Sign up";
+    }
+}
+
+
+/* DEMO AUTH */
+
+function handleAuth(){
+
+    const email =
+    document.getElementById("emailInput").value.trim();
+
+    const password =
+    document.getElementById("passwordInput").value.trim();
+
+    if(isSignup){
+
+        const name =
+        document.getElementById("nameInput").value.trim();
+
+        if(name==="" || email==="" || password===""){
+            alert("Please fill all fields.");
+            return;
+        }
+
+        localStorage.setItem(
+            "duoflyName",
+            name
+        );
+
+        localStorage.setItem(
+            "duoflyLoggedIn",
+            "true"
+        );
+
+        openApp();
+
+    }else{
+
+        if(email==="" || password===""){
+            alert("Please enter email and password.");
+            return;
+        }
+
+        localStorage.setItem(
+            "duoflyLoggedIn",
+            "true"
+        );
+
+        openApp();
+    }
+}
+
+
+/* OPEN APP */
+
+function openApp(){
+
+    document.getElementById("auth").style.display="none";
+
+    document.getElementById("app").style.display="flex";
+}
+
+
+/* AUTO LOGIN */
+
+if(
+    localStorage.getItem("duoflyLoggedIn")
+    === "true"
+){
+
+    openApp();
+}
+
 
 /* OPEN CHAT */
 
@@ -535,7 +803,6 @@ function openChat(name, avatar){
     document.getElementById("userName").textContent=name;
 
     document.getElementById("userAvatar").textContent=avatar;
-
 }
 
 
@@ -546,7 +813,6 @@ function closeChat(){
     document.getElementById("conversation").style.display="none";
 
     document.getElementById("home").style.display="block";
-
 }
 
 
@@ -557,7 +823,8 @@ function sendMessage(){
     const input =
     document.getElementById("messageInput");
 
-    const text=input.value.trim();
+    const text =
+    input.value.trim();
 
     if(text==="") return;
 
@@ -569,16 +836,21 @@ function sendMessage(){
 
     message.className="message sent";
 
-    message.innerHTML=
-    text +
-    "<small>Just now ✓</small>";
+    message.textContent=text;
+
+    const time =
+    document.createElement("small");
+
+    time.textContent="Just now ✓";
+
+    message.appendChild(time);
 
     messages.appendChild(message);
 
     input.value="";
 
-    messages.scrollTop=messages.scrollHeight;
-
+    messages.scrollTop=
+    messages.scrollHeight;
 }
 
 
@@ -586,7 +858,9 @@ function sendMessage(){
 
 document
 .getElementById("messageInput")
-.addEventListener("keydown",function(event){
+.addEventListener(
+"keydown",
+function(event){
 
     if(event.key==="Enter"){
         sendMessage();
@@ -599,18 +873,21 @@ document
 
 document
 .getElementById("search")
-.addEventListener("input",function(){
+.addEventListener(
+"input",
+function(){
 
-    const value=this.value.toLowerCase();
+    const value =
+    this.value.toLowerCase();
 
     document
     .querySelectorAll(".chat")
     .forEach(function(chat){
 
-        const name=
+        const name =
         chat.dataset.name.toLowerCase();
 
-        chat.style.display=
+        chat.style.display =
         name.includes(value)
         ? "flex"
         : "none";
@@ -627,12 +904,14 @@ function showTab(tab, element){
     document
     .querySelectorAll(".tab")
     .forEach(function(item){
+
         item.classList.remove("active");
+
     });
 
     element.classList.add("active");
 
-    const list=
+    const list =
     document.getElementById("chatList");
 
     if(tab==="chats"){
@@ -643,14 +922,14 @@ function showTab(tab, element){
 
     if(tab==="updates"){
 
-        list.innerHTML=
+        list.innerHTML =
         '<div class="empty">🟢<br><br>No new updates</div>';
 
     }
 
     if(tab==="calls"){
 
-        list.innerHTML=
+        list.innerHTML =
         '<div class="empty">📞<br><br>No recent calls</div>';
 
     }
@@ -660,4 +939,4 @@ function showTab(tab, element){
 </script>
 
 </body>
-              </html>
+</html>
